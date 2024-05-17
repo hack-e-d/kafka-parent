@@ -1,5 +1,6 @@
 package com.hacked.kafkaconsumer.kafkaConsumer;
 
+import com.hacked.kafkamodel.models.ChangeEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -13,7 +14,7 @@ public class KafkaConsumer {
     private final String TOPIC_NAME = "kafka-poc-topic";
 
     @KafkaListener(topics = TOPIC_NAME, groupId = "your-consumer-group-id")
-    public void consumeMessage(String message) {
+    public void consumeMessage(ChangeEvent message) {
         logger.info("Incoming events : " + message);
     }
 }
