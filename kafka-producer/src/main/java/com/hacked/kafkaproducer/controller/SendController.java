@@ -2,13 +2,12 @@ package com.hacked.kafkaproducer.controller;
 
 import com.hacked.kafkamodel.models.ChangeEvent;
 import com.hacked.kafkaproducer.kafkaProducer.KafkaProducer;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class SendController {
@@ -21,10 +20,10 @@ public class SendController {
         this.kafkaProducer = kafkaProducer;
     }
 
-    @PostMapping("/send")
-    public String publishToKafkaTopic(@RequestBody List<ChangeEvent> changeEvents) {
-        logger.info(changeEvents.toString());
-        kafkaProducer.sendMessage(changeEvents);
+    @PostMapping("/sendMessage")
+    public String publishToKafkaTopic(@NotNull @RequestBody ChangeEvent changeEvent) {
+        logger.info("Trying to send Change Event through Kafka Topic......");
+        kafkaProducer.sendMessage(changeEvent);
         return "Sent to topic";
     }
 }
