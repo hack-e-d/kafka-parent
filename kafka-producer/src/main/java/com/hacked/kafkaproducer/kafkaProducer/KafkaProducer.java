@@ -26,13 +26,13 @@ public class KafkaProducer {
         this.customKafkaTemplate = customKafkaTemplate;
     }
 
-//    moving to custom serializer implementation
     public void sendMessage(@NotNull List<ChangeEvent> changeEvents) {
         kafkaTemplate.send(TOPIC_NAME, UUID.randomUUID().toString(), changeEvents);
         logger.info("Trying to send data : " + changeEvents + " On topic : " + TOPIC_NAME.toUpperCase());
     }
 
     @Deprecated
+    //    moving to custom List serializer implementation
     public void sendMessage(@NotNull ChangeEvent changeEvent) {
         customKafkaTemplate.send(TOPIC_NAME, UUID.randomUUID().toString(), changeEvent);
         logger.info("Trying to send Change Event : " + changeEvent + " On topic : " + TOPIC_NAME.toUpperCase());
