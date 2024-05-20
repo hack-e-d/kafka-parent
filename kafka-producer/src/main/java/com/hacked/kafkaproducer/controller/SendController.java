@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class SendController {
 
@@ -21,9 +23,9 @@ public class SendController {
     }
 
     @PostMapping("/sendMessage")
-    public String publishToKafkaTopic(@NotNull @RequestBody ChangeEvent changeEvent) {
+    public String publishToKafkaTopic(@NotNull @RequestBody List<ChangeEvent> changeEvents) {
         logger.info("Trying to send Change Event through Kafka Topic......");
-        kafkaProducer.sendMessage(changeEvent);
+        kafkaProducer.sendMessage(changeEvents);
         return "Sent to topic";
     }
 }
